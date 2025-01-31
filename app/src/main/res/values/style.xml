@@ -1,0 +1,12 @@
+<resources>
+    <!-- Define a custom style for your button -->
+    <style name="CustomFABButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">#3e64f2</item> <!-- Background color -->
+        <item name="android:textColor">@android:color/white</item> <!-- Text color -->
+        <item name="android:padding">12dp</item> <!-- Button padding -->
+        <item name="android:elevation">6dp</item> <!-- Shadow effect -->
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerRadius">50dp</item> <!-- Rounded corners -->
+
+    </style>
+</resources>

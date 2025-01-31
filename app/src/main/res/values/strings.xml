@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Swipe</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="product_types">
+        <item>Electronics</item>
+        <item>Clothing</item>
+        <item>Food</item>
+        <item>Furniture</item>
+    </string-array>
+
+</resources>

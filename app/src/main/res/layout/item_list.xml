@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.swipe.Products"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvMovie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:elevation="3dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="3dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/profileCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="2dp"
+
+                    android:layout_marginTop="3dp"
+                    android:translationZ="10dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:layout_constraintStart_toEndOf="@+id/parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/myImageView"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:scaleType="centerCrop"
+                        app:image="@{viewModel.image}" />
+                </androidx.cardview.widget.CardView>
+
+
+                <TextView
+                    android:id="@+id/pTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pImage"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingStart="5dp"
+
+                    android:text="@{viewModel.productName}"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/profileCard"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/pDesc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:hint="description"
+
+
+                    android:paddingStart="5dp"
+                    android:text="@{viewModel.productType}"
+                    android:textColor="#757575"
+                    android:textSize="10dp"
+                    app:layout_constraintStart_toEndOf="@+id/profileCard"
+                    app:layout_constraintTop_toBottomOf="@+id/pTitle" />
+
+                <TextView
+                    android:id="@+id/tax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="7dp"
+                    android:text=""
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toEndOf="@+id/price"
+                    app:layout_constraintTop_toBottomOf="@+id/pDesc" />
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="7dp"
+                    android:paddingStart="5dp"
+                    android:text="kkkkkkk"
+                    android:textAlignment="center"
+
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:layout_constraintStart_toEndOf="@+id/profileCard"
+                    app:layout_constraintTop_toBottomOf="@+id/pDesc" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+</layout>

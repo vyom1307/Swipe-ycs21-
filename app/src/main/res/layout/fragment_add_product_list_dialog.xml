@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:scrollbars="vertical">
+
+    <!-- Product Type Spinner -->
+    <Spinner
+        android:id="@+id/spinner_product_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/product_types"
+        android:layout_marginBottom="5dp"/> <!-- You can define these options in strings.xml -->
+
+    <!-- Product Name EditText -->
+    <EditText
+        android:id="@+id/edit_product_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Product Name"
+        android:inputType="text"
+        android:layout_marginBottom="5dp"/>
+
+    <!-- Selling Price EditText -->
+    <EditText
+        android:id="@+id/edit_selling_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Selling Price"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="5dp"/>
+
+    <!-- Tax Rate EditText -->
+    <EditText
+        android:id="@+id/edit_tax_rate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Tax Rate"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="5dp"/>
+
+    <!-- Select Image Button -->
+    <Button
+        android:id="@+id/btn_select_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Image (JPEG/PNG)"
+        android:onClick="onSelectImageClick" /> <!-- Define this method to handle image selection -->
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:onClick="onSubmitClick" /> <!-- Handle submission logic in your Java code -->
+
+</LinearLayout>
