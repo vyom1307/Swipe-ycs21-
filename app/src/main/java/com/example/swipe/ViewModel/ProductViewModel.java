@@ -1,9 +1,13 @@
 package com.example.swipe.ViewModel;
 
+import static android.content.ContentValues.TAG;
 
-import static androidx.core.content.ContentProviderCompat.requireContext;
+import android.util.Log;
+import com.example.swipe.api.ProductAPIService.UploadResponse;
 
-import android.app.ProgressDialog;
+
+
+
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -11,6 +15,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.swipe.api.ProductAPIService;
 import com.example.swipe.api.RetrofitInstance;
+
+import java.io.IOException;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -35,28 +41,36 @@ public class ProductViewModel extends ViewModel {
             // Show progress dialog
             showProgressDialog.setValue(true);
             ProductAPIService apiService = RetrofitInstance.getService();
-            Call<ResponseBody> call = apiService.uploadProduct(nameBody, typeBody, priceBody, taxBody, imagePart);
-            call.enqueue(new Callback<ResponseBody>() {
-
-
+            Call<UploadResponse> call = apiService.uploadProduct(nameBody, typeBody, priceBody, taxBody, imagePart);
+            Log.d(TAG, "Starting upload request to: " + call.request().url());
+            call.enqueue(new Callback<UploadResponse>() {
                 @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if (response.isSuccessful()) {
+                public void onResponse(Call<UploadResponse> call, Response<UploadResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+
+                        UploadResponse result = response.body();
+                        Log.d(TAG, "Upload success: " + result.getMessage());
+
                         showProgressDialog.setValue(false);
-                        uploadResult.postValue("Product uploaded successfully");
+                        uploadResult.postValue(result.getMessage());
                     } else {
-                        uploadResult.postValue("Failed to upload product");
+                        String errorMsg = "Upload failed with code: " + response.code();
+                        Log.e(TAG, errorMsg);
+                        uploadResult.postValue(errorMsg);
                     }
                 }
 
                 @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                public void onFailure(Call<UploadResponse> call, Throwable throwable) {
                     showProgressDialog.setValue(false);
-                    uploadResult.postValue("Error: " + t.getMessage());
+                    uploadResult.postValue("Error: " + throwable.getMessage());
                 }
-            });
-            uploadResult.postValue("Product uploaded successfully");
-            showProgressDialog.setValue(false);
+
+
+
+
+//
+        });
         }
-    }
+}
 

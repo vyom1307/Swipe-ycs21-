@@ -94,7 +94,16 @@ public class AddProduct extends BottomSheetDialogFragment {
 
         viewModel.getUploadResult().observe(getViewLifecycleOwner(), result -> {
             Toast.makeText(requireContext(), result, Toast.LENGTH_SHORT).show();
+            if (result.toLowerCase().contains("Product added Successfully!")) {
+                // Only dismiss if upload was successful
+                progressDialog.dismiss();
+                dismiss();
+            }
+            else{
+               // progressDialog.dismiss();
+            }
         });
+
 
 
 
@@ -110,10 +119,10 @@ public class AddProduct extends BottomSheetDialogFragment {
                 }
                 else{Toast.makeText(getContext(),"add image",Toast.LENGTH_SHORT).show();}
                 // You can now send this data to your database or use it further as needed
+                dismiss();
 
 
 
-                dismiss(); // Close the bottom sheet after submission
             }
         });
 
@@ -174,13 +183,22 @@ public class AddProduct extends BottomSheetDialogFragment {
         RequestBody taxBody = RequestBody.create(MediaType.parse("text/plain"), tax);
 
         // Create MultipartBody.Part for the image
-        File file = (getFileFromUri(imageUri));//changed
-        if (file == null) {
-            Toast.makeText(requireContext(), "Image file is null", Toast.LENGTH_SHORT).show();
+        File file = getFileFromUri(imageUri);
+        if (file == null || !file.exists()) {
+            Toast.makeText(requireContext(), "Failed to process image file", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+        // Log file details for debugging
+        Log.d("AddProduct", "File size: " + file.length() + " bytes");
+        Log.d("AddProduct", "File path: " + file.getAbsolutePath());
+
+
+        String mimeType = requireContext().getContentResolver().getType(imageUri);
+        if (mimeType == null) {
+            mimeType = "image/jpeg"; // fallback
+        }
+        RequestBody requestFile = RequestBody.create(MediaType.parse(mimeType), file);
         MultipartBody.Part imagePart = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
 
@@ -247,7 +265,7 @@ public class AddProduct extends BottomSheetDialogFragment {
 
             // Copy the content of the InputStream to the file
             FileOutputStream outputStream = new FileOutputStream(file);
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[5120];
             int length;
             while ((length = inputStream.read(buffer)) > 0) {
                 outputStream.write(buffer, 0, length);

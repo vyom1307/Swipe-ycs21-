@@ -1,6 +1,7 @@
 package com.example.swipe.api;
 import com.example.swipe.Products;
 import com.example.swipe.ViewModel.ListViewModel;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -19,11 +20,25 @@ public interface ProductAPIService {
 
     @Multipart
     @POST("add")
-    Call<ResponseBody> uploadProduct(
+    Call<UploadResponse> uploadProduct(
             @Part("product_name") RequestBody productName,
             @Part("product_type") RequestBody productType,
             @Part("price") RequestBody price,
             @Part("tax") RequestBody tax,
             @Part MultipartBody.Part image
     );
+    class UploadResponse {
+        @SerializedName("success")
+        private boolean success;
+
+        @SerializedName("message")
+        private String message;
+
+        @SerializedName("product_id")
+        private String productId;
+
+        public boolean isSuccess() { return success; }
+        public String getMessage() { return message; }
+        public String getProductId() { return productId; }
+    }
 }
